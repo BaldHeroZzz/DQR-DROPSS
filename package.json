@@ -1,9 +1,17 @@
 {
   "name": "ultimate-drop-tracker",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "A live rarity-themed drop dashboard with a secure webhook receiver.",
+  "description": "Live rarity-themed drop dashboard and Discord monitoring bot.",
   "main": "server.js",
-  "scripts": { "start": "node server.js" },
-  "engines": { "node": ">=18" }
+  "scripts": {
+    "start": "node run.js",
+    "start:bot": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.19.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
 }
