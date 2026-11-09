@@ -1,0 +1,9 @@
+{
+  "name": "ultimate-drop-tracker",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A live rarity-themed drop dashboard with a secure webhook receiver.",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
