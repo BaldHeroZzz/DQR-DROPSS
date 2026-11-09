@@ -1,1 +1,51 @@
-
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#09090d">
+<title>Ultimate Drop Tracker</title>
+<style>
+:root{color-scheme:dark;--bg:#09090d;--panel:#111118;--line:#242430;--muted:#8d8d9c;--text:#f5f5fa;--red:#ff4352;--gold:#ffd34d;--purple:#bd7aff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -15%,#29203c 0,transparent 38%),radial-gradient(ellipse at -10% 10%,#30151d 0,transparent 30%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+.wrap{max-width:1200px;margin:auto;padding:30px 22px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:13px}.mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#ff5261,#861b35);display:grid;place-items:center;font-size:22px;box-shadow:0 0 28px #ff435233}.eyebrow{color:#aaa9b7;text-transform:uppercase;letter-spacing:.19em;font-size:10px;font-weight:800}.brand h1{font-size:20px;letter-spacing:.04em;margin:2px 0 0}.live{border:1px solid #235c42;background:#10251c;color:#69e4a0;padding:8px 12px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.1em}.dot{display:inline-block;width:7px;height:7px;background:#5de69a;border-radius:50%;margin-right:7px;box-shadow:0 0 10px #5de69a}
+.hero{border:1px solid #302b3a;border-radius:22px;padding:28px;background:linear-gradient(110deg,#17131d,#111119 62%,#19121b);position:relative;overflow:hidden;margin-bottom:18px}.hero:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-70px;top:-160px;background:#9d3c6330;filter:blur(20px)}.hero h2{font-size:clamp(26px,5vw,42px);line-height:1.08;margin:8px 0 10px;letter-spacing:-.04em}.hero p{color:#aaa8b6;margin:0;max-width:600px}.hero strong{color:#fff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 26px}.stat,.panel{background:#111118;border:1px solid var(--line);border-radius:17px}.stat{padding:17px}.stat .num{font-size:27px;font-weight:850;letter-spacing:-.04em}.stat .label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.stat.red .num{color:var(--red)}.stat.gold .num{color:var(--gold)}.stat.purple .num{color:var(--purple)}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin:24px 0 13px}.toolbar h3{margin:0;font-size:16px;letter-spacing:.04em}.filters{display:flex;gap:7px;flex-wrap:wrap}.filter{border:1px solid #30303d;background:#14141d;color:#aaa9b7;border-radius:999px;padding:8px 12px;font:inherit;font-size:11px;cursor:pointer}.filter.active{color:white;border-color:#777;background:#252530}.search{width:100%;background:#111118;border:1px solid var(--line);border-radius:12px;padding:13px 15px;color:white;outline:none;margin-bottom:13px}.search:focus{border-color:#777}.feed{display:grid;gap:11px}.drop{display:flex;align-items:center;gap:15px;padding:17px;border-radius:16px;background:linear-gradient(110deg,#15151d,#101016);border:1px solid var(--line);position:relative;overflow:hidden;animation:enter .35s ease both}.drop:before{content:"";width:3px;position:absolute;inset:0 auto 0 0;background:var(--rarity)}.drop.ultimate{--rarity:var(--red);border-color:#6a2933;box-shadow:inset 0 0 35px #ff43520b}.drop.legendary{--rarity:var(--gold);border-color:#665322;box-shadow:inset 0 0 35px #ffd34d0b}.drop.epic_t3{--rarity:var(--purple);border-color:#54346f;box-shadow:inset 0 0 35px #bd7aff0b}.icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:21px;background:#24202a;flex:none}.ultimate .icon{background:#3a171e}.legendary .icon{background:#382f17}.epic_t3 .icon{background:#2c1b3c}.info{min-width:0;flex:1}.rarity{font-size:9px;font-weight:900;letter-spacing:.16em;color:var(--rarity);text-transform:uppercase}.item{font-size:17px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{color:#92919f;font-size:11px}.time{color:#898896;font-size:11px;white-space:nowrap}.empty{padding:48px 20px;text-align:center;color:#8d8d9c;border:1px dashed #343441;border-radius:16px}.empty b{display:block;color:#e6e4ed;margin-bottom:5px}.foot{margin-top:22px;color:#777684;font-size:11px;text-align:center}.foot code{color:#bbb}.toast{position:fixed;bottom:20px;right:20px;background:#17251e;border:1px solid #326a4a;color:#a1f0bd;padding:12px 16px;border-radius:12px;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:none}
+@keyframes enter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:700px){.wrap{padding:20px 14px 45px}.stats{grid-template-columns:repeat(2,1fr)}.hero{padding:22px}.top{align-items:flex-start}.drop{gap:11px;padding:14px}.icon{width:42px;height:42px}.time{font-size:10px}}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div class="brand"><div class="mark">✦</div><div><div class="eyebrow">Real-time loot intelligence</div><h1>ULTIMATE DROP TRACKER</h1></div></div><div class="live" id="connection"><span class="dot"></span>CONNECTING</div></header>
+<section class="hero"><div class="eyebrow">Your drops. One feed.</div><h2>THE HUNT NEVER<br>STOPS.</h2><p>Track every <strong>Ultimate</strong>, <strong>Legendary</strong>, and <strong>Epic Tier 3 Armor</strong> drop as it happens. Clean feed, instant updates, zero clutter.</p></section>
+<section class="stats">
+<div class="stat"><div class="num" id="total">0</div><div class="label">Total tracked</div></div>
+<div class="stat red"><div class="num" id="ultimate">0</div><div class="label">Ultimate</div></div>
+<div class="stat gold"><div class="num" id="legendary">0</div><div class="label">Legendary</div></div>
+<div class="stat purple"><div class="num" id="epic">0</div><div class="label">Epic Tier 3</div></div>
+</section>
+<div class="toolbar"><h3>✧ LIVE DROP FEED</h3><div class="filters">
+<button class="filter active" data-filter="all">ALL</button><button class="filter" data-filter="ultimate">ULTIMATE</button><button class="filter" data-filter="legendary">LEGENDARY</button><button class="filter" data-filter="epic_t3">EPIC T3</button>
+</div></div>
+<input id="search" class="search" placeholder="⌕  Search item or player..." autocomplete="off">
+<section id="feed" class="feed"><div class="empty"><b>Waiting for the first drop...</b>Connect your drop sender to start filling this feed.</div></section>
+<div class="foot">ULTIMATE DROP TRACKER · Live updates via secure server events</div>
+</main><div class="toast" id="toast">✦ New drop received</div>
+<script>
+const names={ultimate:"ULTIMATE DROP",legendary:"LEGENDARY",epic_t3:"EPIC TIER 3 ARMOR"};
+const icons={ultimate:"✹",legendary:"♛",epic_t3:"⬡"};
+let drops=[],filter="all";
+const $=id=>document.getElementById(id);
+function timeAgo(value){const sec=Math.max(0,Math.floor((Date.now()-new Date(value).getTime())/1000));if(sec<10)return"Just now";if(sec<60)return sec+"s ago";if(sec<3600)return Math.floor(sec/60)+"m ago";if(sec<86400)return Math.floor(sec/3600)+"h ago";return new Date(value).toLocaleDateString();}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+ const q=$("search").value.toLowerCase();
+ const shown=drops.filter(d=>(filter==="all"||d.rarity===filter)&&(`${d.item} ${d.player} ${d.detail||""}`).toLowerCase().includes(q));
+ $("total").textContent=drops.length;$("ultimate").textContent=drops.filter(d=>d.rarity==="ultimate").length;$("legendary").textContent=drops.filter(d=>d.rarity==="legendary").length;$("epic").textContent=drops.filter(d=>d.rarity==="epic_t3").length;
+ $("feed").innerHTML=shown.length?shown.map(d=>`<article class="drop ${esc(d.rarity)}"><div class="icon">${icons[d.rarity]||"✦"}</div><div class="info"><div class="rarity">${names[d.rarity]||"DROP"}</div><div class="item">${esc(d.item)}</div><div class="meta">PLAYER · ${esc(d.player)}${d.detail?" · "+esc(d.detail):""}</div></div><div class="time">${timeAgo(d.createdAt)}</div></article>`).join(""):`<div class="empty"><b>No drops found</b>Try another search or rarity filter.</div>`;
+}
+function addDrop(d,notify=false){if(!d||!d.id||drops.some(x=>x.id===d.id))return;drops.unshift(d);drops=drops.slice(0,1000);render();if(notify){$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2200);}}
+document.querySelectorAll(".filter").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".filter").forEach(x=>x.classList.remove("active"));b.classList.add("active");filter=b.dataset.filter;render();}));
+$("search").addEventListener("input",render);
+async function init(){try{const r=await fetch("/api/drops");drops=await r.json();render();}catch(e){}connect();}
+function connect(){const es=new EventSource("/api/stream");es.onopen=()=>{$("connection").innerHTML='<span class="dot"></span>LIVE';};es.onmessage=e=>{try{addDrop(JSON.parse(e.data),true);}catch(_){}};es.onerror=()=>{$("connection").textContent="RECONNECTING";};}
+init();
+</script></body></html>
