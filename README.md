@@ -1,52 +1,26 @@
-# Ultimate Drop Tracker
+# Ultimate Drop Tracker + Discord Monitor
 
-A dark, rarity-themed live drop dashboard with a small Node.js server.
+This project runs the dashboard and Discord bot together inside your existing Render **Web Service**. You do not need to create a separate Background Worker.
 
-## Rarity mapping
-- `ultimate` → crimson red
-- `legendary` → gold/yellow
-- `epic_t3` → purple (Epic Tier 3 Armor)
+## Existing Render Web Service
+Keep your current build command as `npm install` and start command as `npm start`.
 
-## Run locally
-Requires Node.js 18 or newer.
+Add these environment variables in the existing service's **Environment** page:
+- `DROP_TOKEN` = your existing website API secret (keep the same value already configured on the website)
+- `DISCORD_TOKEN` = your Discord bot token (secret; never put it in GitHub)
+- `DISCORD_CHANNEL_ID` = `1556615758631403560`
+- `DROP_API_URL` = `https://dqr-drops.onrender.com/api/drops`
 
-1. Copy `.env.example` to `.env` and set a long random `DROP_TOKEN`.
-2. Install and run:
-   ```bash
-   npm start
-   ```
-3. Open `http://localhost:3000`.
+The updated `npm start` launches both `server.js` (website) and `bot.js` (Discord monitor).
 
-This starter intentionally has no third-party dependencies.
+## Discord permissions
+- Enable **Message Content Intent** in Discord Developer Portal → your app → Bot → Privileged Gateway Intents.
+- Give the bot **View Channel** and **Read Message History** in the monitored channel.
 
-## Send a drop to the site
-The server exposes `POST /api/drops`. Send JSON with the `X-DROP-TOKEN` header:
+## What it detects
+The bot reads message text and embed titles, descriptions, fields, and footer text in the configured channel. It forwards lines formatted like `Item Name, Legendary ×1` or `Item Name, Ultimate ×1`. Epic lines are forwarded as `epic_t3` only when the item name includes an armor/armour or Tier 3/T3 indicator. The player name currently defaults to the Discord message author's display name.
 
-```bash
-curl -X POST https://YOUR-SITE.example/api/drops \
-  -H "Content-Type: application/json" \
-  -H "X-DROP-TOKEN: YOUR_DROP_TOKEN" \
-  -d '{"rarity":"legendary","item":"Gungnir","player":"ExamplePlayer"}'
-```
+If the report uses a different layout, check the Render logs and share a screenshot or copied example with secrets hidden so the parser can be adjusted.
 
-Accepted rarity values: `ultimate`, `legendary`, `epic_t3`.
-
-Optional `detail` can contain a short note. Example:
-```json
-{
-  "rarity": "epic_t3",
-  "item": "Tier 3 Chestplate",
-  "player": "ExamplePlayer",
-  "detail": "Volcanic Chambers"
-}
-```
-
-## Important Discord integration note
-A Discord **incoming webhook** sends messages *into Discord*; it does not let a website read channel messages. This app receives drops from a trusted sender at `/api/drops`.
-
-If your drops are currently posted by a Discord bot in a channel, you need a Discord bot (with the appropriate server permissions/intents) to read those messages and forward parsed drops to this endpoint. Do not put your Discord bot token or `DROP_TOKEN` in browser-side code. Keep both on a server.
-
-## Deploy
-Deploy this Node.js project to a host that supports persistent storage. Set `PORT` (usually supplied by the host) and `DROP_TOKEN` as environment variables. The `data/drops.json` file stores the latest 1,000 drops; use persistent disk or a database if your host has ephemeral filesystems.
-
-For production, put the app behind HTTPS and add rate limiting / request logging appropriate to your hosting environment.
+## Security
+Never commit `.env`, Discord bot tokens, or `DROP_TOKEN` to GitHub. Enter secrets only in Render's Environment settings. An incoming Discord webhook URL cannot read channel messages; the bot uses the Discord Gateway instead.
